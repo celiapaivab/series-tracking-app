@@ -3,12 +3,22 @@
   "version": "1.0.0",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js"
+    "start": "node app.js",
+    "test": "mocha --recursive test --reporter spec",
+    "test:html": "mocha --recursive test --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=index,reportTitle='Series API Test Report'"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
     "express": "^4.18.2",
     "jsonwebtoken": "^9.0.2",
     "swagger-ui-express": "^4.6.3"
+  },
+  "devDependencies": {
+    "chai": "^6.2.0",
+    "chai-http": "^5.1.2",
+    "dotenv": "^17.2.3",
+    "mocha": "^11.7.5",
+    "mochawesome": "^7.1.4",
+    "supertest": "^7.1.4"
   }
 }

@@ -1,0 +1,6 @@
+JIRA-01: Transferência interna entre contas
+ID	Condição	Resultado Esperado	Camada
+1	Tentar realizar o registro de usuário inexistente, preenchendo todos os campos e fornecendo senha válida.	Usuário é registrado com sucesso com sucesso.	API
+2	Tentar realizar o registro de usuário já cadastrado anteriormente.	Falha no registro por duplicidade.	API
+3	Tentar realizar o registro de usuário sem preencher os campos obrigatórios.	Falha por ausência de campos obrigatórios.	Web
+4	Tentar realizar o registro de usuário fornecendo senha inválida.	Falha por fornecer senha inválida.	Web

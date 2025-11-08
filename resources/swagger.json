@@ -1,0 +1,230 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Series Tracking API",
+    "version": "1.0.0",
+    "description": "API REST para acompanhamento de séries assistidas."
+  },
+  "paths": {
+    "/register": {
+      "post": {
+        "summary": "Registrar novo usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserRegister"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "Usuário registrado com sucesso" },
+          "400": { "description": "Campos obrigatórios ou senha inválida" },
+          "409": { "description": "E-mail já cadastrado" }
+        }
+      }
+    },
+    "/login": {
+      "post": {
+        "summary": "Login de usuário",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UserLogin"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login bem-sucedido",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "token": { "type": "string" }
+                  }
+                }
+              }
+            }
+          },
+          "404": { "description": "Usuário não encontrado" },
+          "401": { "description": "Senha incorreta" }
+        }
+      }
+    },
+    "/series": {
+      "post": {
+        "summary": "Registrar nova série",
+        "security": [{ "bearerAuth": [] }],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SeriesCreate" }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Série registrada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Series" }
+              }
+            }
+          },
+          "400": { "description": "Campos obrigatórios ou status inválido" },
+          "401": { "description": "Token não fornecido" },
+          "403": { "description": "Token inválido ou expirado" }
+        }
+      },
+      "get": {
+        "summary": "Listar séries do usuário",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": {
+            "description": "Lista de séries",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": { "$ref": "#/components/schemas/Series" }
+                }
+              }
+            }
+          },
+          "401": { "description": "Token não fornecido" },
+          "403": { "description": "Token inválido ou expirado" }
+        }
+      }
+    },
+    "/series/{id}": {
+      "put": {
+        "summary": "Atualizar série",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": { "$ref": "#/components/schemas/SeriesUpdate" }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Série atualizada",
+            "content": {
+              "application/json": {
+                "schema": { "$ref": "#/components/schemas/Series" }
+              }
+            }
+          },
+          "400": {
+            "description": "Data de término obrigatória para status Finalizada"
+          },
+          "401": { "description": "Token não fornecido" },
+          "403": { "description": "Token inválido ou expirado" },
+          "404": { "description": "Série não encontrada" }
+        }
+      },
+      "delete": {
+        "summary": "Deletar série",
+        "security": [{ "bearerAuth": [] }],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": { "type": "integer" }
+          }
+        ],
+        "responses": {
+          "200": { "description": "Série deletada com sucesso" },
+          "401": { "description": "Token não fornecido" },
+          "403": { "description": "Token inválido ou expirado" },
+          "404": { "description": "Série não encontrada" }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "UserRegister": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        },
+        "required": ["email", "password"]
+      },
+      "UserLogin": {
+        "type": "object",
+        "properties": {
+          "email": { "type": "string" },
+          "password": { "type": "string" }
+        },
+        "required": ["email", "password"]
+      },
+      "SeriesCreate": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "dataInicio": { "type": "string", "format": "date" },
+          "status": {
+            "type": "string",
+            "enum": ["Não Iniciada", "Assistindo", "Finalizada"]
+          }
+        },
+        "required": ["nome", "dataInicio", "status"]
+      },
+      "SeriesUpdate": {
+        "type": "object",
+        "properties": {
+          "nome": { "type": "string" },
+          "dataInicio": { "type": "string", "format": "date" },
+          "dataTermino": { "type": "string", "format": "date" },
+          "status": {
+            "type": "string",
+            "enum": ["Não Iniciada", "Assistindo", "Finalizada"]
+          }
+        }
+      },
+      "Series": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "integer" },
+          "userId": { "type": "integer" },
+          "nome": { "type": "string" },
+          "dataInicio": { "type": "string", "format": "date" },
+          "dataTermino": {
+            "type": "string",
+            "format": "date",
+            "nullable": true
+          },
+          "status": { "type": "string" }
+        }
+      }
+    }
+  }
+}

@@ -24,11 +24,10 @@ jobs:
         run: npm install
 
       - name: Start API server
-        run: npm start &
-
-      - name: Wait for API to be ready
         run: |
-          npx wait-on http://localhost:3000
-
+          npm start &
+          sleep 10
+          
       - name: Run functional tests
         run: npm test
+        

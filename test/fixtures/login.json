@@ -1,0 +1,4 @@
+[
+  { "email": "usuarioValido@teste.com", "password": "senhaValida123" },
+  { "email": "usuarioInexistente@teste.com", "password": "senhaValida123" }
+]

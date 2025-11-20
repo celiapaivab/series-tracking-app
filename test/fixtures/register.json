@@ -1,0 +1,6 @@
+[
+  { "email": "DYNAMIC", "password": "senhaValida123" },
+  { "email": "usuarioExistente@teste.com", "password": "senhaValida123" },
+  { "email": "", "password": "senhaValida123" },
+  { "email": "usuarioInvalido@teste.com", "password": "123" }
+]

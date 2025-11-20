@@ -9,7 +9,6 @@ JIRA-02: Login de Usuário
 ID	Condição	Resultado Esperado	Camada
 1	Realizar login com credenciais válidas	Usuário autenticado com sucesso.	API
 2	Tentar login com usuário não registrado	Falha por usuário inexistente.	API
-3	Tentar login sem preencher campos obrigatórios	Falha por ausência de campos obrigatórios.	Web
 
 JIRA-03: Registro de Série
 ID	Condição	Resultado Esperado	Camada

@@ -4,8 +4,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
-    "test": "mocha --recursive --timeout 10000 ./test/**/*.test.js",
-    "test:report": "mocha --recursive --timeout 10000 --reporter mochawesome --reporter-options reportDir=mochawesome-report,reportFilename=index,quiet=true ./test/**/*.test.js"
+    "test": "mocha --recursive test/tests/**/*.test.js",
+    "test:report": "mocha --recursive test/tests/**/*.test.js --reporter mochawesome"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

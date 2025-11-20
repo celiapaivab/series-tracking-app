@@ -1,0 +1,9 @@
+[
+  { "nome": "Série Teste", "dataInicio": "2023-01-01", "status": "Assistindo" },
+  { "nome": "", "dataInicio": "2023-01-01", "status": "Assistindo" },
+  {
+    "nome": "Série Status Inválido",
+    "dataInicio": "2023-01-01",
+    "status": "Errado"
+  }
+]

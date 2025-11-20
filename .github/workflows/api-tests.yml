@@ -24,10 +24,9 @@ jobs:
         run: npm install
 
       - name: Start API server
-        run: npm start &
-
-      - name: Sleep for 5 seconds
-        run: sleep 5
-
+        run: |
+          npm start &
+          sleep 10
+          
       - name: Run functional tests
         run: npm test

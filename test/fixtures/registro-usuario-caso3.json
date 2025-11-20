@@ -1,0 +1,11 @@
+{
+  "descricao": "Registro sem preencher campos obrigatórios",
+  "input": {
+    "email": "",
+    "password": "SenhaValida123!"
+  },
+  "expected": {
+    "status": 400,
+    "body": { "error": "Campos obrigatórios" }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "descricao": "Usuário já cadastrado anteriormente",
+  "input": {
+    "email": "testuser1@example.com",
+    "password": "SenhaValida123!"
+  },
+  "expected": {
+    "status": 409,
+    "body": { "error": "E-mail já cadastrado" }
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "descricao": "Usuário inexistente, todos os campos preenchidos, senha válida",
+  "input": {
+    "email": "testuser1@example.com",
+    "password": "SenhaValida123!"
+  },
+  "expected": {
+    "status": 201,
+    "body": { "message": "Usuário registrado com sucesso" }
+  }
+}

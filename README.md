@@ -1,8 +1,53 @@
 # Series Tracking App
 
+![Node.js](https://img.shields.io/badge/Node.js-339933?logo=node.js&logoColor=white&style=flat)
+![Express](https://img.shields.io/badge/Express-000000?logo=express&logoColor=white&style=flat)
+![Mocha](https://img.shields.io/badge/Mocha-8D6748?logo=mocha&logoColor=white&style=flat)
+![Chai](https://img.shields.io/badge/Chai-A30701?logo=chai&logoColor=white&style=flat)
+![Supertest](https://img.shields.io/badge/Supertest-333?style=flat)
+![K6](https://img.shields.io/badge/K6-7D64FF?logo=k6&logoColor=white&style=flat)
+![Swagger](https://img.shields.io/badge/Swagger-85EA2D?logo=swagger&logoColor=white&style=flat)
+
 ## Descrição
 
 API REST para acompanhamento de séries assistidas, permitindo registro e autenticação de usuários, cadastro e gerenciamento de séries, e visualização do histórico pessoal.
+
+## Estrutura do Projeto
+
+```
+├── app.js
+├── CondicoesDeTeste.txt
+├── Heurísticas.txt
+├── package.json
+├── README.md
+├── controllers/   # Lógica dos endpoints da API
+├── middleware/    # Funções intermediárias (ex: autenticação)
+├── model/         # Modelos e acesso a dados
+├── resources/     # Recursos estáticos e documentação
+├── routes/        # Definição das rotas da API
+├── service/       # Regras de negócio da aplicação
+├── test/          # Testes automatizados
+│   ├── fixtures/   # Dados de exemplo para testes
+│   │   ├── login.json
+│   │   ├── register.json
+│   │   └── series.json
+│   ├── helpers/    # Funções auxiliares para testes
+│   │   ├── api.js
+│   │   ├── auth.js
+│   │   ├── email.js
+│   │   └── serie.js
+│   ├── k6/         # Testes de performance
+│   │   ├── base.config.js
+│   │   └── registro-usuario/
+│   │       └── register-user.k6.js
+│   └── tests/      # Testes funcionais (Mocha/Chai)
+│       ├── login.test.js
+│       ├── register.test.js
+│       ├── series.test.js
+│       ├── seriesDelete.test.js
+│       ├── seriesList.test.js
+│       └── seriesUpdate.test.js
+```
 
 ## Funcionalidades
 
@@ -36,6 +81,35 @@ A documentação da API está disponível via Swagger no endpoint `/api-docs`.
 1. Instale as dependências: `npm install`
 2. Inicie o servidor: `npm start`
 3. Acesse a documentação Swagger em `http://localhost:3000/api-docs`
+
+## Testes Funcionais
+
+Os testes funcionais garantem o correto funcionamento dos principais fluxos da API (registro, login, cadastro, atualização, listagem e exclusão de séries).
+
+- **Tecnologias utilizadas:** Mocha, Chai, Supertest
+- **Localização:** `test/tests/`
+- **Como executar:**
+  - Execute todos os testes: `npm test`
+  - Para relatório em HTML: `npm run test:report` (resultado em `mochawesome-report`)
+
+## Testes de Performance
+
+Os testes de performance avaliam o tempo de resposta e a estabilidade da API sob carga, utilizando o K6.
+
+- **Tecnologia utilizada:** K6
+- **Localização:** `test/k6/`
+- **Como executar:**
+  - Instale o K6 globalmente: `npm install -g k6` ou via [site oficial](https://k6.io/docs/getting-started/installation/)
+  - Execute o teste de registro de usuário:
+    ```sh
+    k6 run test/k6/registro-usuario/register-user.k6.js
+    ```
+  - O teste simula múltimos usuários registrando-se simultaneamente e verifica tempo de resposta e sucesso.
+
+## Resumo dos Testes
+
+- Testes funcionais cobrem todos os requisitos de negócio descritos nas User Stories.
+- Testes de performance avaliam o endpoint de registro sob carga (30 usuários simultâneos por 60 segundos, resposta < 200ms).
 
 ## User Stories e Regras de Negócio
 
